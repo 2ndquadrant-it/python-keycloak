@@ -947,49 +947,49 @@ class KeycloakAdmin:
             URL_ADMIN_REALM_ROLES_ROLE_BY_NAME.format(**params_path))
         return raise_error_from_response(data_raw, KeycloakGetError, expected_code=204)
 
-    def add_composite_realms_roles_to_role(self, role_name, roles):
+    def add_composite_realms_roles_to_role(self, role_id, roles):
         """
         Add a composite to the role
 
-        :param role_name: The name of the role
+        :param role_id: The id of the role
         :param roles: roles list or role (use RoleRepresentation) to be updated
         :return Keycloak server response
         """
 
         payload = roles if isinstance(roles, list) else [roles]
-        params_path = {"realm-name": self.realm_name, "role-name": role_name}
+        params_path = {"realm-name": self.realm_name, "role-id": role_id}
         data_raw = self.raw_post(
             URL_ADMIN_REALM_ROLES_COMPOSITE_REALM_ROLE.format(**params_path),
             data=json.dumps(payload))
         return raise_error_from_response(data_raw, KeycloakGetError,
                                          expected_code=204)
 
-    def remove_composite_realms_roles_to_role(self, role_name, roles):
+    def remove_composite_realms_roles_to_role(self, role_id, roles):
         """
         Remove roles from the role’s composite
 
-        :param role_name: The name of the role
+        :param role_id: The id of the role
         :param roles: roles list or role (use RoleRepresentation) to be removed
         :return Keycloak server response
         """
 
         payload = roles if isinstance(roles, list) else [roles]
-        params_path = {"realm-name": self.realm_name, "role-name": role_name}
+        params_path = {"realm-name": self.realm_name, "role-id": role_id}
         data_raw = self.raw_delete(
             URL_ADMIN_REALM_ROLES_COMPOSITE_REALM_ROLE.format(**params_path),
             data=json.dumps(payload))
         return raise_error_from_response(data_raw, KeycloakGetError,
                                          expected_code=204)
 
-    def get_composite_realms_roles_to_role(self, role_name):
+    def get_composite_realms_roles_to_role(self, role_id):
         """
         Get composites of the role
 
-        :param role_name: The name of the role
+        :param role_id: The id of the role
         :return Keycloak server response (array RoleRepresentation)
         """
 
-        params_path = {"realm-name": self.realm_name, "role-name": role_name}
+        params_path = {"realm-name": self.realm_name, "role-id": role_id}
         data_raw = self.raw_get(
             URL_ADMIN_REALM_ROLES_COMPOSITE_REALM_ROLE.format(**params_path))
         return raise_error_from_response(data_raw, KeycloakGetError)
